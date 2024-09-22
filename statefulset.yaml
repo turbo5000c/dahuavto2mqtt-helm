@@ -62,14 +62,3 @@ spec:
             secretKeyRef:
               name: dahua-mqtt-secrets
               key: MQTT_BROKER_CLIENT_ID
-        volumeMounts:
-        - name: dahua-data
-          mountPath: /app/data
-  volumeClaimTemplates:
-  - metadata:
-      name: dahua-data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 500Mi
