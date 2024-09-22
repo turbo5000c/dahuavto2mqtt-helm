@@ -47,6 +47,11 @@ spec:
             secretKeyRef:
               name: dahua-mqtt-secrets
               key: MQTT_BROKER_PORT
+        - name: MQTT_BROKER_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: dahua-mqtt-secrets
+              key: MQTT_BROKER_USERNAME
         - name: MQTT_BROKER_PASSWORD
           valueFrom:
             secretKeyRef:
