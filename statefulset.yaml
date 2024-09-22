@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dahuavto2mqtt
+  labels:
+    app: dahuavto2mqtt
+spec:
+  serviceName: "dahuavto2mqtt"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dahuavto2mqtt
+  template:
+    metadata:
+      labels:
+        app: dahuavto2mqtt
+    spec:
+      containers:
+      - name: dahuavto2mqtt
+        image: registry.gitlab.com/elad.bar/dahuavto2mqtt:latest
+        ports:
+        - containerPort: 1883
+          name: mqtt
+        env:
+        - name: DAHUA_VTO_HOST
+          valueFrom:
+            secretKeyRef:
+              name: dahua-mqtt-secrets
+              key: DAHUA_VTO_HOST
+        - name: DAHUA_VTO_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: dahua-mqtt-secrets
+              key: DAHUA_VTO_USERNAME
+        - name: DAHUA_VTO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dahua-mqtt-secrets
+              key: DAHUA_VTO_PASSWORD
+        - name: MQTT_BROKER_HOST
+          valueFrom:
+            secretKeyRef:
+              name: dahua-mqtt-secrets
+              key: MQTT_BROKER_HOST
+        - name: MQTT_BROKER_PORT
+          valueFrom:
+            secretKeyRef:
+              name: dahua-mqtt-secrets
+              key: MQTT_BROKER_PORT
+        - name: MQTT_BROKER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dahua-mqtt-secrets
+              key: MQTT_BROKER_PASSWORD
+        - name: MQTT_BROKER_TOPIC_PREFIX
+          valueFrom:
+            secretKeyRef:
+              name: dahua-mqtt-secrets
+              key: MQTT_BROKER_TOPIC_PREFIX
+        - name: MQTT_BROKER_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: dahua-mqtt-secrets
+              key: MQTT_BROKER_CLIENT_ID
+        volumeMounts:
+        - name: dahua-data
+          mountPath: /app/data
+  volumeClaimTemplates:
+  - metadata:
+      name: dahua-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 500Mi

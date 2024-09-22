@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dahuavto2mqtt
+  labels:
+    app: dahuavto2mqtt
+spec:
+  ports:
+    - port: 1883
+      targetPort: 1883
+      name: mqtt
+  selector:
+    app: dahuavto2mqtt
+  type: ClusterIP
