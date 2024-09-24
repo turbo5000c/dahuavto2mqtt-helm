@@ -5,12 +5,12 @@
   ],
   "regexManagers": [
     {
-      "fileMatch": ["statefulset.yaml"], 
+      "fileMatch": ["StatefulSet.yaml"],
       "matchStrings": [
-        "image:\\s(?<depName>.*):(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+        "image:\\s(?<depName>.*)@sha256:(?<currentValue>[a-f0-9]{64})"
       ],
       "datasourceTemplate": "docker",
-      "versioningTemplate": "docker"
+      "versioningTemplate": "digest"
     }
   ]
 }
