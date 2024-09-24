@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: dahuavto2mqtt
-        image: registry.gitlab.com/elad.bar/dahuavto2mqtt:latest
+        image: "registry.gitlab.com/elad.bar/dahuavto2mqtt@sha256:fa14700f787a013fdeb240115666624b8feea76422e3b745f50cf6d96ce08b34"
         ports:
         - containerPort: 1883
           name: mqtt
